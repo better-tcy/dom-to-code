@@ -1,0 +1,23 @@
+{
+  "name": "dom-to-code",
+  "version": "1.0.0",
+  "description": "navigate to the code through the dom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dom",
+    "code"
+  ],
+  "homepage": "https://github.com/better-tcy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/better-tcy/dom-to-code"
+  },
+  "author": "tuocangyu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.1.3"
+  }
+}
