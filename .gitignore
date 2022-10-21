@@ -5,6 +5,7 @@
 dist
 dist-ssr
 node_modules
+.vscode
 .idea/
 *.log
 stats.html
