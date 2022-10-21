@@ -1,0 +1,22 @@
+import path from 'node:path'
+import {defineConfig} from 'vite'
+import {createVuePlugin} from 'vite-plugin-vue2'
+
+const pathResolve = (...args: string[]) => path.resolve(__dirname, ...args)
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@/': `${pathResolve('./src')}/`
+    }
+  },
+
+  plugins: [
+    createVuePlugin({
+      jsx: true,
+      jsxOptions: {
+        compositionAPI: true
+      }
+    })
+  ]
+})

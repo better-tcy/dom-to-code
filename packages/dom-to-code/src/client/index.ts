@@ -1,24 +1,25 @@
-const requestService = (filePath) => {
+const requestService = (filePath: string) => {
   import('axios').then((res) => {
     const { protocol, host } = window.location
     res.default
       .get(`${protocol}//${host}/code`, {
         params: {
-          filePath: `${filePath}`
-        }
+          filePath: `${filePath}`,
+        },
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   })
 }
 
-function getFilePath(element) {
-  if (!element || !element.getAttribute) return null
-  if (element.getAttribute('code-location')) {
+function getFilePath(element: HTMLElement | null): string | null {
+  if (!element || !element.getAttribute)
+    return null
+  if (element.getAttribute('code-location'))
     return element.getAttribute('code-location')
-  }
-  return getFilePath(element.parentNode)
+
+  return getFilePath(element.parentNode as HTMLElement)
 }
 
 export default function () {
@@ -30,10 +31,10 @@ export default function () {
 
   document.addEventListener('mousedown', (e) => {
     if (e.button === 1 && (keyCode === 'Control' || keyCode === 'Command')) {
-      e.stopImmediatePropagation();
+      e.stopImmediatePropagation()
       console.log(e.stopImmediatePropagation)
-      const filePath = getFilePath(e.target)
-      requestService(filePath)
+      const filePath = getFilePath(e.target as HTMLElement)
+      filePath && requestService(filePath)
       keyCode = ''
     }
   }, false)

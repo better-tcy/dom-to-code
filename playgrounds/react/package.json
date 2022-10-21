@@ -1,0 +1,28 @@
+{
+  "name": "playground-react",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -r -k -g 'npm:build:deps' 'npm:dev:vite'",
+    "dev:vite": "vite",
+    "build": "vite build",
+    "build:deps": "pnpm --filter dom-to-code build:watch",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "dom-to-code": "workspace:*",
+    "clsx": "^1.2.1",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.23",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@unocss/reset": "^0.45.26",
+    "@vitejs/plugin-react": "^2.1.0",
+    "concurrently": "*",
+    "typescript": "*",
+    "unocss": "^0.45.26",
+    "vite": "*"
+  }
+}

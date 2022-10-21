@@ -1,23 +1,110 @@
 {
-  "name": "dom-to-code",
+  "name": "dom-to-code-monorepo",
   "version": "1.0.0",
-  "description": "navigate to the code through the dom",
-  "main": "index.js",
+  "private": true,
+  "packageManager": "pnpm@7.0.0",
+  "author": "better-tcy",
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bootstrap": "pnpm i &&pnpm build:all",
+    "build": "esno ./scripts/build.ts",
+    "build:all": "turbo run build",
+    "build:ci": "pnpm i --store=node_modules/.pnpm-store --frozen-lockfile && turbo run build --no-cache",
+    "check-update": "esno ./scripts/check-update.ts",
+    "clean": "rimraf **/node_modules/**",
+    "commit": "git add . &&git-cz",
+    "lint": "pnpm lint:es",
+    "lint:change": "lint-staged",
+    "lint:es": "eslint --fix . --ext .jsx,.js,.vue,.ts,.tsx",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install",
+    "release": "esno ./scripts/release.ts",
+    "test": "pnpm run -r test"
   },
-  "keywords": [
-    "dom",
-    "code"
-  ],
-  "homepage": "https://github.com/better-tcy",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/better-tcy/dom-to-code"
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.27.0",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@types/eslint": "^8.4.6",
+    "@types/node": "*",
+    "@types/prettier": "^2.7.1",
+    "bumpp": "^8.2.1",
+    "commitizen": "^4.2.5",
+    "conventional-changelog-cli": "*",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.24.0",
+    "esno": "*",
+    "globby": "11.1.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "npm-check-updates": "^16.3.3",
+    "rimraf": "^3.0.2",
+    "turbo": "^1.5.4",
+    "typescript": "*"
   },
-  "author": "tuocangyu",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^1.1.3"
+  "pnpm": {
+    "overrides": {
+      "@types/node": "18.7.23",
+      "@types/react": "18.0.21",
+      "@types/react-dom": "18.0.6",
+      "@types/react-router-dom": "5.3.3",
+      "@vitejs/plugin-react": "2.1.0",
+      "concurrently": "7.4.0",
+      "conventional-changelog-cli": "2.2.2",
+      "esno": "0.16.3",
+      "react": "17.0.2",
+      "react-dom": "17.0.2",
+      "react-router-dom": "6.3.0",
+      "typescript": "4.7.4",
+      "unbuild": "0.8.11",
+      "vite": "3.0.9",
+      "vitest": "0.23.4",
+      "vue-demi": "0.13.11"
+    },
+    "allowedDeprecatedVersions": {
+      "stable": "*",
+      "core-js": "*",
+      "mkdirp": "*",
+      "uuid": "*",
+      "querystring": "*",
+      "sane": "*",
+      "chokidar": "*",
+      "fsevents": "*",
+      "source-map-resolve": "*",
+      "source-map-url": "*",
+      "resolve-url": "*",
+      "urix": "*"
+    },
+    "packageExtensions": {
+      "vue-template-compiler": {
+        "devDependencies": {
+          "vue": "^2.6.14"
+        },
+        "peerDependencies": {
+          "vue": "^2.6.14"
+        }
+      }
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

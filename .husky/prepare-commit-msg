@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "do not 'git commit' please run 'pnpm commit' instead"
+# echo "commit lint please see https://juejin.cn/post/6934292467160514567#heading-3"
+echo "See .github/commit-convention.md for more details."

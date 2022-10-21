@@ -1,0 +1,28 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/master",
+  "pipeline": {
+    "dom-to-code#build": {
+      "inputs": ["src/**", "scripts/**", "types/**"],
+      "outputs": ["dist/**"]
+    },
+    "doc#build": {
+      "dependsOn": ["^build"],
+      "inputs": ["./**"],
+      "outputs": ["./.vuepress/dist/**"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["src/**", "scripts/**", "types/**"],
+      "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    }
+  },
+  "globalDependencies": ["tsconfig-base.json"]
+}
