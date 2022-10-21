@@ -30,7 +30,7 @@ export default function () {
   })
 
   document.addEventListener('mousedown', (e) => {
-    if (e.button === 1 && (keyCode === 'Control' || keyCode === 'Command')) {
+    if (e.button === 1 && (keyCode === 'Control' || keyCode === 'Meta')) {
       e.stopImmediatePropagation()
       console.log(e.stopImmediatePropagation)
       const filePath = getFilePath(e.target as HTMLElement)
