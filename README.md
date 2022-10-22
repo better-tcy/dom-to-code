@@ -1,32 +1,143 @@
-## 背景
-**大多数中大型项目并不是一两个前端去开发的，可能有些不是你编写的业务你都不知道源码在哪里,并且随着项目迭代越来越多，组件不断增加，如果给你个新需求或者再原来基础上改bug，想快速定位到某个文件或某条代码 要么问同事 要么全局搜，其实这并不是一件特别高效的方法,安装这个插件 可以让你通过浏览器dom直接到源代码，是不是方便很多 :tw-1f428:**
-## 安装
-**npm install dom-to-code**
-## 使用
-**1.vue.config.js**
-```javascript
-const server = require('dom-to-code/lib/server')
+<div align="center">
+  <a href="https://dom-to-code.netlify.app/">
+    <img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/logo.png" width="50%">
+  </a>
+  <div align="center">
+
+# Dom To Code
+
+  <p>屎山救星，点击 dom 直接跳到编辑器对应代码。支持 vite/webpack、vue2/vue3/react</p>
+
+  </div>
+  
+  <p>
+    <a href="https://www.npmjs.com/package/dom-to-code"><img src="https://img.shields.io/npm/v/dom-to-code.svg" alt="npm package"></a>
+  <a href="#badge"><img src="https://img.shields.io/github/languages/top/better-tcy/dom-to-code" alt="language"></a>
+  <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/js/index.es.js?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/js/index.es.js?label=gzip%20size&compression=gzip" alt="gzip"></a>
+  <a href="#badge"><img src="https://img.shields.io/librariesio/github/better-tcy/dom-to-code" alt="librariesio"></a>
+  <a href="https://github.com/better-tcy/dom-to-code/blob/master/LICENSE"><img src="https://img.shields.io/github/license/better-tcy/dom-to-code" alt="LICENSE"></a>
+    <img src="https://img.shields.io/github/stars/better-tcy/dom-to-code?style=social" alt="stars">
+  </p>
+</div>
+
+## ✨ 介绍
+
+受够了翔一般的代码，每次想改一下接手的项目都得各种搜索代码来改，于是就有了这个屎山救星。
+
+引入插件到项目后，ctrl + 按下鼠标滚轮，就会在编辑器打开鼠标下的界面元素源码。
+
+别人搜索你直接跳，别人加班你摸鱼。
+
+## 📦 安装
+
+```bash
+npm i -D dom-to-code
+```
+
+## 🔨 使用
+
+<details>
+<summary>Vite</summary><br>
+
+```ts
+// vite.config.ts
+import {defineConfig} from 'vite'
+import vue3 from '@vitejs/plugin-vue'
+import {domToCodePlugin} from 'dom-to-code/vite'
+
+export default defineConfig({
+  plugins: [
+    vue3(),
+    domToCodePlugin({
+      /* options */
+    })
+  ]
+})
+```
+
+Example: [`playgrounds/vite-vue3`](./playgrounds/vite-vue3/)
+
+<br></details>
+
+<details>
+<summary>Vue CLI</summary><br>
+
+```ts
+// vue.config.js
+const {domToCodePlugin, domToCodeDevServerV4, domToCodeDevServerV5} = require('dom-to-code/webpack')
 
 module.exports = {
   devServer: {
-  before: server
+    // 如果你的 package.json 里的 @vue/cli-service 版本 <= 4.x.x，则使用 domToCodeDevServerV4
+    // ...domToCodeDevServerV4,
+
+    // 如果你的 package.json 里的 @vue/cli-service 版本 >= 5.x.x，则使用 domToCodeDevServerV5
+    ...domToCodeDevServerV5
   },
-  chainWebpack: (config) => {
-    config.module
-      .rule('vue')
-      .test(/\.vue/)
-      .use('dom-to-code/lib/add-location-loader.js')
-      .loader('dom-to-code/lib/add-location-loader.js')
-      .end()
+  configureWebpack: {
+    plugins: [
+      domToCodePlugin({
+        /* options */
+      })
+    ]
   }
 }
 ```
-**2.main.js**
-```javascript
-import client from 'dom-to-code'
 
-client()
+Example: [`playgrounds/webpack-vue2`](./playgrounds/webpack-vue2/)
+
+<br></details>
+
+<details>
+<summary>Webpack</summary><br>
+
+```ts
+// webpack.config.js
+const {domToCodePlugin} = require('dom-to-code/webpack').default
+module.exports = {
+  /* ... */
+  plugins: [
+    domToCodePlugin({
+      /* options */
+    })
+  ]
+}
 ```
-**3.在浏览器Dom上Ctrl | Command + 鼠标滚轮点击即可定位到源码行**
 
-**注：为了正确跳转到对应代码行，我们确保vscode命令已经添加到环境变量中。Mac系统用户可以在VSCode界面使用command+shift+p快捷键，然后搜索Code 并选择install 'code' command in path；Windows用户可以找到VSCode安装位置的bin文件夹目录，并将该目录路径添加到系统环境变量当中。**
+<br></details>
+
+## 📚 文档
+
+查看 [文档指南 📒](https://dom-to-code.netlify.app/)(即将上线...)
+
+## 💡 注意
+
+如果无法跳转编辑器，请确保你的编辑器已经添加到环境变量，比如 vscode，添加成功后在命令终端输入
+
+```bash
+code -v
+```
+
+可以看到 vscode 版本信息意味着成功。
+
+## 🤖️ Contributing
+
+Learn about contribution [here](https://github.com/better-tcy/dom-to-code/blob/master/CONTRIBUTING.md).
+
+This project exists thanks to all the people who contribute:
+
+<a href="https://github.com/better-tcy/dom-to-code/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=better-tcy/dom-to-code" />
+</a>
+
+## 🌸 Credits
+
+- [unplugin](https://github.com/unjs/unplugin)
+
+- [vite-plugin-react-inspector](https://github.com/sudongyuer/vite-plugin-react-inspector)
+
+- [vite-plugin-vue-inspector](https://github.com/webfansplz/vite-plugin-vue-inspector)
+
+## 📄 License
+
+[MIT](https://github.com/better-tcy/dom-to-code/blob/master/LICENSE) License © 2022-PRESENT [tuocangyu](https://github.com/better-tcy)

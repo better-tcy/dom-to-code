@@ -23,9 +23,20 @@
   },
   "cSpell.words": [
     "antfu",
+    "bumpp",
+    "clsx",
     "commitlint",
+    "demi",
+    "envinfo",
+    "esbuild",
+    "esbuilder",
     "esno",
+    "globby",
+    "librariesio",
+    "Middlewares",
     "nprogress",
+    "nuxt",
+    "pluginutils",
     "pnpm",
     "preinstall",
     "prismjs",
@@ -34,6 +45,7 @@
     "stackblitz",
     "tuocangyu",
     "unocss",
+    "unplugin",
     "vuepress",
     "vueuse"
   ]

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question
+    url: https://github.com/better-tcy/dom-to-code/discussions/new?category=Q-A
+    about: Ask a question or discuss about dom-to-code
+  - name: Ideas
+    url: https://github.com/better-tcy/dom-to-code/discussions/new?category=Ideas
+    about: Start a discussion to improve dom-to-code
+  - name: GitHub Sponsors
+    url: https://github.com/sponsors/better-tcy
+    about: Like this project? Please consider supporting the author.

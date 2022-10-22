@@ -3,10 +3,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist",
+    "types": ["webpack-env"],
     "paths": {
-      "@test/*": ["./test/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*", "./scripts/**/*", "./types/**/*", "./test/**/*", "./*.js", "./*.ts"],
+  "include": ["./src/**/*", "./scripts/**/*", "./types/**/*", "./*.js", "./*.ts"],
   "exclude": ["node_modules", "dist"]
 }
