@@ -18,7 +18,7 @@
     "commit": "git add . &&git-cz",
     "lint": "pnpm lint:es",
     "lint:change": "lint-staged",
-    "lint:es": "eslint --fix . --ext .jsx,.js,.vue,.ts,.tsx",
+    "lint:es": "eslint --fix . --ext .jsx,.js,.vue,.ts,.tsx,.md",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "release": "esno ./scripts/release.ts",

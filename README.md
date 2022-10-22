@@ -41,9 +41,9 @@ npm i -D dom-to-code
 
 ```ts
 // vite.config.ts
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue3 from '@vitejs/plugin-vue'
-import {domToCodePlugin} from 'dom-to-code/vite'
+import { domToCodePlugin } from 'dom-to-code/vite'
 
 export default defineConfig({
   plugins: [
@@ -64,7 +64,7 @@ Example: [`playgrounds/vite-vue3`](./playgrounds/vite-vue3/)
 
 ```ts
 // vue.config.js
-const {domToCodePlugin, domToCodeDevServerV4, domToCodeDevServerV5} = require('dom-to-code/webpack')
+const { domToCodePlugin, domToCodeDevServerV4, domToCodeDevServerV5 } = require('dom-to-code/webpack')
 
 module.exports = {
   devServer: {
@@ -93,7 +93,7 @@ Example: [`playgrounds/webpack-vue2`](./playgrounds/webpack-vue2/)
 
 ```ts
 // webpack.config.js
-const {domToCodePlugin} = require('dom-to-code/webpack').default
+const { domToCodePlugin } = require('dom-to-code/webpack').default
 module.exports = {
   /* ... */
   plugins: [
