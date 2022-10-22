@@ -7,17 +7,10 @@
       "outputs": ["dist/**"]
     },
     "doc#build": {
-      "dependsOn": ["^build"],
       "inputs": ["./**"],
       "outputs": ["./.vuepress/dist/**"]
     },
-    "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["src/**", "scripts/**", "types/**"],
-      "outputs": ["dist/**"]
-    },
     "test": {
-      "dependsOn": ["build"],
       "outputs": []
     },
     "dev": {
