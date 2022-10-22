@@ -12,7 +12,7 @@
       "outputs": ["./.vuepress/dist/**"]
     },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["dom-to-code#build"],
       "inputs": ["src/**", "scripts/**", "types/**"],
       "outputs": ["dist/**"]
     },
