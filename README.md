@@ -141,7 +141,7 @@ Example: [`playgrounds/webpack5-vue2`](./playgrounds/webpack5-vue2/)
 
 ```ts
 // webpack.config.js
-const { domToCodePlugin } = require('dom-to-code/webpack').default
+const { domToCodePlugin } = require('dom-to-code/webpack')
 module.exports = {
   /* ... */
   plugins: [
