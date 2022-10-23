@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://dom-to-code.netlify.app/">
-    <img src="./packages/doc/.vuepress/public/images/logo-bg.png" width="50%">
+    <img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/logo-bg.png" width="50%">
   </a>
   <div align="center">
 
@@ -28,7 +28,7 @@
 
 别人搜索你直接跳，别人加班你摸鱼。
 
-<img src="./packages/doc/.vuepress/public/images/dom-to-code-example.gif">
+<img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/dom-to-code-example.gif">
 
 ## 📦 安装
 

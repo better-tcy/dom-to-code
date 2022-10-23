@@ -6,17 +6,23 @@ import globby from 'globby'
 export const pathResolve = (..._path: string[]) => path.resolve(__dirname, ..._path)
 export const pathResolveUnix = (..._path: string[]) => pathResolve(..._path).replace(/\\/g, '/')
 
+export const rootPath = pathResolve('../')
 export const packagesGlobPaths = pathResolveUnix('../packages/*/')
 export const packagesPaths = globby.sync(packagesGlobPaths, { onlyFiles: false, onlyDirectories: true })
-export const rootLicense = pathResolve('../', 'LICENSE')
+export const rootLicense = pathResolve(rootPath, 'LICENSE')
 
 export function copyFiles() {
   packagesPaths.map((packagePath) => {
     const pkgJson = pathResolve(packagePath, 'package.json')
+    const rootReadme = pathResolve(rootPath, 'README.md')
+    const pkgReadme = pathResolve(packagePath, 'README.md')
     const license = pathResolve(packagePath, 'LICENSE')
 
     if (!existsSync(pkgJson))
       return
+
+    if (!existsSync(pkgReadme))
+      copyFileSync(rootReadme, pkgReadme)
 
     const pkg: Record<string, string> = JSON.parse(readFileSync(pkgJson, 'utf8')) || {}
     if (pkg.private)
