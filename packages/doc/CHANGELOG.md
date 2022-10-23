@@ -1,4 +1,13 @@
-## 1.2.1 (2022-10-23)
+# 1.3.0 (2022-10-23)
+
+
+### Bug Fixes
+
+* **dom-to-code:** 修复 webpack4  文件路径解析问题 ([0320ee0](https://github.com/better-tcy/dom-to-code/commit/0320ee0f2f25576ebfe525fab805fe5ba0a629d3))
+
+
+
+# 1.3.0 (2022-10-23)
 
 
 ### Bug Fixes

@@ -110,7 +110,7 @@ function parseVueRequest(id: string) {
   // 文件全路径
   const [filename] = id.split('?', 2)
 
-  const url = new URL(id)
+  const url = new URL(id, 'http://domain.inspector')
 
   // vite 的 query  参数
   const query = Object.fromEntries(url.searchParams.entries()) as VueQuery
