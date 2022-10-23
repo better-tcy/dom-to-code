@@ -1,4 +1,4 @@
-import { initDomToCode } from 'dom-to-code/client'
+import { initDomToCode } from 'dom-to-code'
 import { createApp } from 'vue'
 import App from './App.vue'
 

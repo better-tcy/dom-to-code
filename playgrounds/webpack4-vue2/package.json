@@ -1,0 +1,29 @@
+{
+  "name": "playground-webpack4-vue2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -r -k -g 'npm:build:deps' 'npm:dev:serve'",
+    "dev:serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "build:deps": "pnpm --filter dom-to-code build:watch"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "dom-to-code": "workspace:*",
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@vue/cli-plugin-babel": "4.4.6",
+    "@vue/cli-plugin-typescript": "4.4.6",
+    "@vue/cli-service": "4.4.6",
+    "typescript": "3.9.3",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

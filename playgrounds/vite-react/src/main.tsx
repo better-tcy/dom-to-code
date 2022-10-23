@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { initDomToCode } from 'dom-to-code/client'
+import { initDomToCode } from 'dom-to-code'
 import Example from './Example'
 
 import '@unocss/reset/tailwind.css'

@@ -1,5 +1,5 @@
 import { launchEditorMiddleware } from './core/middleware'
-import unplugin from '.'
+import unplugin from './unplugin'
 
 /**
  * 专门给 vue-cli  <= 4 用的 devServer 配置

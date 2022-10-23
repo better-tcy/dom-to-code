@@ -13,7 +13,7 @@
   <p>
     <a href="https://www.npmjs.com/package/dom-to-code"><img src="https://img.shields.io/npm/v/dom-to-code.svg" alt="npm package"></a>
   <a href="#badge"><img src="https://img.shields.io/github/languages/top/better-tcy/dom-to-code" alt="language"></a>
-  <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/js/index.es.js?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/js/index.es.js?label=gzip%20size&compression=gzip" alt="gzip"></a>
+  <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip" alt="gzip"></a>
   <a href="#badge"><img src="https://img.shields.io/librariesio/github/better-tcy/dom-to-code" alt="librariesio"></a>
   <a href="https://github.com/better-tcy/dom-to-code/blob/master/LICENSE"><img src="https://img.shields.io/github/license/better-tcy/dom-to-code" alt="LICENSE"></a>
     <img src="https://img.shields.io/github/stars/better-tcy/dom-to-code?style=social" alt="stars">
@@ -31,10 +31,50 @@
 ## 📦 安装
 
 ```bash
-npm i -D dom-to-code
+npm i dom-to-code
 ```
 
 ## 🔨 使用
+
+#### 配置选项
+
+```ts
+interface Options {
+  /**
+   * 插件模式，默认是 vue
+   */
+  mode: 'vue' | 'react'
+
+  /**
+   * 引入的文件规则，vue 默认是 jsx、tsx、vue 文件，react 默认是 jsx、tsx 文件
+   */
+  include?: string | RegExp | string[] | RegExp[] | null
+
+  /**
+   * 排除的文件规则，默认是 node_modules 文件
+   */
+  exclude?: string | RegExp | string[] | RegExp[] | null
+}
+
+```
+
+#### 第一步
+
+首先在项目入口文件（比如 `index` 文件或 `main` 文件）中引入插件初始化
+
+```ts
+import { initDomToCode } from 'dom-to-code'
+
+// 初始化 dom-to-code
+// initDomToCode()
+
+// 推荐：只在非生产环境初始化
+process.env.NODE_ENV !== 'production' && initDomToCode()
+```
+
+#### 第二步
+
+配置打包器，`dom-to-code` 支持 `vite` 和 `webpack` 打包器，以下是 `vite` 、`vue-cli`、`webpack` 里的示例
 
 <details>
 <summary>Vite</summary><br>
@@ -49,7 +89,7 @@ export default defineConfig({
   plugins: [
     vue3(),
     domToCodePlugin({
-      /* options */
+      mode: 'vue'
     })
   ]
 })
@@ -77,14 +117,14 @@ module.exports = {
   configureWebpack: {
     plugins: [
       domToCodePlugin({
-        /* options */
+        mode: 'vue'
       })
     ]
   }
 }
 ```
 
-Example: [`playgrounds/webpack-vue2`](./playgrounds/webpack-vue2/)
+Example: [`playgrounds/webpack5-vue2`](./playgrounds/webpack5-vue2/)
 
 <br></details>
 
@@ -98,7 +138,7 @@ module.exports = {
   /* ... */
   plugins: [
     domToCodePlugin({
-      /* options */
+      mode: 'vue'
     })
   ]
 }

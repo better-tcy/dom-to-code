@@ -1,5 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
-const {domToCodePlugin, domToCodeDevServerV5} = require('dom-to-code/webpack')
+const { domToCodePlugin, domToCodeDevServerV5 } = require('dom-to-code/webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -9,5 +9,5 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     // add plugin at first
     config.plugin('dom-to-code').use(domToCodePlugin())
-  }
+  },
 })

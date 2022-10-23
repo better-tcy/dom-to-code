@@ -40,10 +40,15 @@
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
     },
-    "./client": {
-      "types": "./dist/client.d.ts",
-      "require": "./dist/client.cjs",
-      "import": "./dist/client.mjs"
+    "./shared-utils": {
+      "types": "./dist/shared-utils.d.ts",
+      "require": "./dist/shared-utils.cjs",
+      "import": "./dist/shared-utils.mjs"
+    },
+    "./unplugin": {
+      "types": "./dist/unplugin.d.ts",
+      "require": "./dist/unplugin.cjs",
+      "import": "./dist/unplugin.mjs"
     },
     "./vite": {
       "types": "./dist/vite.d.ts",
@@ -103,11 +108,13 @@
     "@vue/compiler-dom": "^3.2.41",
     "axios": "^1.1.3",
     "launch-editor": "^2.6.0",
+    "loader-utils": "2.0.3",
     "magic-string": "^0.26.7",
     "unplugin": "^0.10.1"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
+    "@types/loader-utils": "2.0.3",
     "conventional-changelog-cli": "*",
     "cross-env": "^7.0.3",
     "esbuild": "^0.15.12",
