@@ -76,7 +76,7 @@ process.env.NODE_ENV !== 'production' && initDomToCode()
 
 #### 第二步
 
-配置打包器，`dom-to-code` 支持 `vite` 和 `webpack` 打包器，以下是 `vite` 、`vue-cli`、`webpack` 里的示例
+配置打包器，`dom-to-code` 支持 `vite` 和 `webpack` 打包器，以下是 `vite` 、`vue-cli`、`webpack` 里的示例(推荐只在非生产环境配置)
 
 <details>
 <summary>Vite</summary><br>
@@ -123,6 +123,12 @@ module.exports = {
       })
     ]
   }
+  // 如果你使用的是chainWebpack
+  // chainWebpack: (config) => {
+  //   config
+  //     .plugin('domToCodePlugin')
+  //     .use(domToCodePlugin())
+  // }
 }
 ```
 
