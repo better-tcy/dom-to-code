@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://dom-to-code.netlify.app/">
-    <img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/logo.png" width="50%">
+    <img src="./packages/doc/.vuepress/public/images/logo-bg.png" width="50%">
   </a>
   <div align="center">
 
@@ -27,6 +27,8 @@
 引入插件到项目后，ctrl + 按下鼠标滚轮，就会在编辑器打开鼠标下的界面元素源码。
 
 别人搜索你直接跳，别人加班你摸鱼。
+
+<img src="./packages/doc/.vuepress/public/images/dom-to-code-example.gif">
 
 ## 📦 安装
 
@@ -169,14 +171,6 @@ This project exists thanks to all the people who contribute:
 <a href="https://github.com/better-tcy/dom-to-code/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=better-tcy/dom-to-code" />
 </a>
-
-## 🌸 Credits
-
-- [unplugin](https://github.com/unjs/unplugin)
-
-- [vite-plugin-react-inspector](https://github.com/sudongyuer/vite-plugin-react-inspector)
-
-- [vite-plugin-vue-inspector](https://github.com/webfansplz/vite-plugin-vue-inspector)
 
 ## 📄 License
 
