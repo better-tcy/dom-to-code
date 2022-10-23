@@ -1,5 +1,5 @@
 import type { Options } from './core/types'
-import unplugin from '.'
+import unplugin from './unplugin'
 
 export const domToCodePlugin = function (this: any, options?: Options) {
   // install webpack plugin

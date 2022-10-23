@@ -1,9 +1,8 @@
 import Vue from 'vue'
+import { initDomToCode } from 'dom-to-code'
 import App from './App.vue'
-import {initDomToCode} from 'dom-to-code/client'
 
 initDomToCode()
-
 
 Vue.config.productionTip = false
 
