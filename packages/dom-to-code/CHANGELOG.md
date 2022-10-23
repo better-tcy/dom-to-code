@@ -1,4 +1,13 @@
-# 1.2.0 (2022-10-22)
+## 1.2.1 (2022-10-23)
+
+
+### Bug Fixes
+
+* **dom-to-code:** 修复 webpack4 的引入 bug 问题，完善文档 ([b472aba](https://github.com/better-tcy/dom-to-code/commit/b472aba902b64ba6f747e48ecdcd8fccd9c28c94))
+
+
+
+## 1.2.1 (2022-10-22)
 
 
 
