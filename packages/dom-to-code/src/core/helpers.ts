@@ -1,4 +1,4 @@
-import type { JSXIdentifier, JSXMemberExpression } from '@babel/types'
+import type { JSXIdentifier, JSXMemberExpression, JSXNamespacedName, JSXOpeningElement } from '@babel/types'
 import type { FilterPattern } from '@rollup/pluginutils'
 import type MagicString from 'magic-string'
 import type { TransformResult } from 'unplugin'
@@ -45,11 +45,22 @@ export function resolveOption(options: Options): OptionsResolved {
 /**
  * 处理 jsx ast
  */
-export function parseJSXIdentifier(name: JSXIdentifier | JSXMemberExpression): string {
+export function parseJSXIdentifier(name: JSXIdentifier | JSXMemberExpression | JSXNamespacedName): string {
   if (name.type === 'JSXIdentifier')
-    return name.name
+    return name.name || ''
+  else if (name.type === 'JSXNamespacedName')
+    return parseJSXIdentifier(name.name) || ''
   else
     return `${parseJSXIdentifier(name.object)}.${parseJSXIdentifier(name.property)}`
+}
+
+/**
+ * 获取 jsx 元素 tag 名称
+ * @param openingElement jsx 元素
+ * @returns jsx 元素名称 <div></div> 返回 div, <React.Fragment></React.Fragment> 返回 React.Fragment
+ */
+export function getJsxElementName(openingElement: JSXOpeningElement) {
+  return parseJSXIdentifier(openingElement.name)
 }
 
 /**
