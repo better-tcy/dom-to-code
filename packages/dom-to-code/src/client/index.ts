@@ -46,6 +46,8 @@ export function initDomToCode(): void {
   document.addEventListener('mousedown', (e) => {
     if (e.button === 1 && (keyCode === 'Control' || keyCode === 'Meta')) {
       e.stopImmediatePropagation()
+      e.preventDefault()
+      e.stopPropagation()
       console.log('dom-to-code: open editor.')
       const filePath = getFilePath(e.target as HTMLElement)
       filePath && requestService(filePath)
