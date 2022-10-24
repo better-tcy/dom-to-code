@@ -1,6 +1,6 @@
 {
   "name": "dom-to-code",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "navigate to the code through the dom",
   "keywords": [
     "dom",

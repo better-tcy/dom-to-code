@@ -1,4 +1,13 @@
-# 1.4.0 (2022-10-23)
+## 1.4.1 (2022-10-24)
+
+
+### Bug Fixes
+
+* **dom-to-code:** 修复 pnpm 项目的文件路径挂载 bug ([8d35ed3](https://github.com/better-tcy/dom-to-code/commit/8d35ed31d77d3a66e8fe4d23a430801ca8ccb1b8))
+
+
+
+## 1.4.1 (2022-10-23)
 
 
 
