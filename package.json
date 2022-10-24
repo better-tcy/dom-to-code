@@ -77,7 +77,16 @@
       "source-map-resolve": "*",
       "source-map-url": "*",
       "resolve-url": "*",
-      "urix": "*"
+      "urix": "*",
+      "html-webpack-plugin": "*",
+      "@hapi/joi": "*",
+      "request": "*",
+      "@hapi/topo": "*",
+      "@hapi/bournes": "*",
+      "@hapi/address": "*",
+      "@hapi/hoek": "*",
+      "har-validator": "*",
+      "svgo": "*"
     },
     "packageExtensions": {
       "vue-template-compiler": {

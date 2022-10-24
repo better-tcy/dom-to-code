@@ -13,7 +13,10 @@
     "vue",
     "react"
   ],
-  "author": "tuocangyu <https://github.com/better-tcy>",
+  "contributors": [
+    "tuocangyu <https://github.com/better-tcy>",
+    "yangjinming <https://github.com/2214962083>"
+  ],
   "funding": "https://github.com/sponsors/better-tcy",
   "license": "MIT",
   "private": false,
