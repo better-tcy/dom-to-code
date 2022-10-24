@@ -1,7 +1,7 @@
 // see: https://github.com/sudongyuer/vite-plugin-react-inspector/blob/master/packages/vite-plugin-react-inspector/src/index.ts
 import { parseSync, traverse } from '@babel/core'
 import MagicString from 'magic-string'
-import { createDomAttrLineInfo, parseJSXIdentifier } from '../helpers'
+import { createDomAttrLineInfo, getJsxElementName, parseJSXIdentifier } from '../helpers'
 
 /**
  * 转换 react 项目
@@ -25,7 +25,7 @@ export const transformReact = (code: string, id: string) => {
     })
     traverse(ast, {
       enter({ node }) {
-        if (node.type === 'JSXElement') {
+        if (node.type === 'JSXElement' && !getJsxElementName(node.openingElement).endsWith('Fragment')) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
           if (node?.openingElement?.name?.object?.name === 'React')

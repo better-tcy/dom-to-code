@@ -49,16 +49,10 @@
   "pnpm": {
     "overrides": {
       "@types/node": "18.7.23",
-      "@types/react": "18.0.21",
-      "@types/react-dom": "18.0.6",
-      "@types/react-router-dom": "5.3.3",
       "@vitejs/plugin-react": "2.1.0",
       "concurrently": "7.4.0",
       "conventional-changelog-cli": "2.2.2",
       "esno": "0.16.3",
-      "react": "17.0.2",
-      "react-dom": "17.0.2",
-      "react-router-dom": "6.3.0",
       "typescript": "4.7.4",
       "unbuild": "0.8.11",
       "vite": "3.0.9",
@@ -86,7 +80,9 @@
       "@hapi/address": "*",
       "@hapi/hoek": "*",
       "har-validator": "*",
-      "svgo": "*"
+      "svgo": "*",
+      "@hapi/bourne": "*",
+      "w3c-hr-time": "*"
     },
     "packageExtensions": {
       "vue-template-compiler": {

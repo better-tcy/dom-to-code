@@ -102,6 +102,24 @@ Example: [`playgrounds/vite-vue3`](./playgrounds/vite-vue3/)
 <br></details>
 
 <details>
+<summary>Webpack</summary><br>
+
+```ts
+// webpack.config.js
+const { domToCodePlugin } = require('dom-to-code/webpack')
+module.exports = {
+  /* ... */
+  plugins: [
+    domToCodePlugin({
+      mode: 'vue'
+    })
+  ]
+}
+```
+
+<br></details>
+
+<details>
 <summary>Vue CLI</summary><br>
 
 ```ts
@@ -137,20 +155,36 @@ Example: [`playgrounds/webpack5-vue2`](./playgrounds/webpack5-vue2/)
 <br></details>
 
 <details>
-<summary>Webpack</summary><br>
+<summary>Create-react-app + react-app-rewired</summary><br>
 
 ```ts
-// webpack.config.js
-const { domToCodePlugin } = require('dom-to-code/webpack')
+// config-overrides.js
+const { domToCodePlugin, domToCodeDevServerV4, domToCodeDevServerV5 } = require('dom-to-code/webpack')
+
 module.exports = {
-  /* ... */
-  plugins: [
-    domToCodePlugin({
-      mode: 'vue'
-    })
-  ]
+  webpack(config) {
+    config.plugins.push(domToCodePlugin({
+      mode: 'react',
+    }))
+    return config
+  },
+  devServer(configFunction) {
+    return function (proxy, allowedHost) {
+      const config = configFunction(proxy, allowedHost)
+
+      // 如果你的 package.json 里的 react-scripts 版本 <= 4.x.x，则使用 domToCodeDevServerV4
+      // Object.assign(config, domToCodeDevServerV4)
+
+      // 如果你的 package.json 里的 react-scripts 版本 >= 5.x.x，则使用 domToCodeDevServerV5
+      Object.assign(config, domToCodeDevServerV5)
+
+      return config
+    }
+  },
 }
 ```
+
+Example: [`playgrounds/webpack5-react`](./playgrounds/webpack5-react/)
 
 <br></details>
 
