@@ -13,18 +13,20 @@ export const rootLicense = pathResolve(rootPath, 'LICENSE')
 export const rootReadmePaths = globby.sync(pathResolveUnix(rootPath, 'README*.md'), { onlyFiles: true })
 
 export function copyFiles() {
-  packagesPaths.map((packagePath) => {
-    const pkgJson = pathResolve(packagePath, 'package.json')
-    const license = pathResolve(packagePath, 'LICENSE')
-
-    if (!existsSync(pkgJson))
-      return
+  getPackagesInfo('public').map((pkgInfo) => {
+    const packagePath = pkgInfo.path
+    const pkgJson = pkgInfo.pkgJsonPath
 
     rootReadmePaths.map((rootReadmePath) => {
       const readmeFileName = path.basename(rootReadmePath)
       const pkgReadmePath = pathResolve(packagePath, readmeFileName)
+      if (existsSync(pkgReadmePath))
+        return
+
       copyFileSync(rootReadmePath, pkgReadmePath)
     })
+
+    const license = pathResolve(packagePath, 'LICENSE')
 
     const pkg: Record<string, string> = JSON.parse(readFileSync(pkgJson, 'utf8')) || {}
     if (pkg.private)
@@ -34,7 +36,7 @@ export function copyFiles() {
   })
 }
 
-export interface PackageInfo { path: string; name: string }
+export interface PackageInfo { path: string; name: string; pkgJsonPath: string }
 export function getPackagesInfo(type: 'public' | 'all'): PackageInfo[] {
   return packagesPaths.reduce<PackageInfo[]>((pkgInfos: PackageInfo[], packagePath) => {
     const pkgJson = pathResolve(packagePath, 'package.json')
@@ -51,6 +53,7 @@ export function getPackagesInfo(type: 'public' | 'all'): PackageInfo[] {
         ...pkgInfos,
         {
           path: packagePath,
+          pkgJsonPath: pkgJson,
           name: pkg.name,
         },
       ]
@@ -60,6 +63,7 @@ export function getPackagesInfo(type: 'public' | 'all'): PackageInfo[] {
         ...pkgInfos,
         {
           path: packagePath,
+          pkgJsonPath: pkgJson,
           name: pkg.name,
         },
       ]
