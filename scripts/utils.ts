@@ -10,19 +10,21 @@ export const rootPath = pathResolve('../')
 export const packagesGlobPaths = pathResolveUnix('../packages/*/')
 export const packagesPaths = globby.sync(packagesGlobPaths, { onlyFiles: false, onlyDirectories: true })
 export const rootLicense = pathResolve(rootPath, 'LICENSE')
+export const rootReadmePaths = globby.sync(pathResolveUnix(rootPath, 'README*.md'), { onlyFiles: true })
 
 export function copyFiles() {
   packagesPaths.map((packagePath) => {
     const pkgJson = pathResolve(packagePath, 'package.json')
-    const rootReadme = pathResolve(rootPath, 'README.md')
-    const pkgReadme = pathResolve(packagePath, 'README.md')
     const license = pathResolve(packagePath, 'LICENSE')
 
     if (!existsSync(pkgJson))
       return
 
-    if (!existsSync(pkgReadme))
-      copyFileSync(rootReadme, pkgReadme)
+    rootReadmePaths.map((rootReadmePath) => {
+      const readmeFileName = path.basename(rootReadmePath)
+      const pkgReadmePath = pathResolve(packagePath, readmeFileName)
+      copyFileSync(rootReadmePath, pkgReadmePath)
+    })
 
     const pkg: Record<string, string> = JSON.parse(readFileSync(pkgJson, 'utf8')) || {}
     if (pkg.private)

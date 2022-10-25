@@ -5,17 +5,9 @@ import { DOM_ATTR, OPEN_CODE_API } from '../core/constant'
  * @param filePath 页面元素代码路径信息
  */
 const requestService = (filePath: string) => {
-  import('axios').then((res) => {
-    const { protocol, host } = window.location
-    res.default
-      .get(`${protocol}//${host}${OPEN_CODE_API}`, {
-        params: {
-          filePath: `${filePath}`,
-        },
-      })
-      .catch((error) => {
-        console.error('dom-to-code: ', error)
-      })
+  const { origin } = window.location
+  fetch(`${origin}${OPEN_CODE_API}?filePath=${filePath}`).catch((error) => {
+    console.error('dom-to-code: ', error)
   })
 }
 

@@ -3,19 +3,17 @@
     <img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/logo-bg.png" width="50%">
   </a>
   <div align="center">
-
-# Dom To Code
-
-  <p>开发效率神器，点击 dom 直接跳到编辑器对应代码。支持 vite/webpack、vue2/vue3/react</p>
-
+    <h1>DOM TO CODE</h1>
+    <p>简体中文 | <a href="./README_en.md">English</a></p>
+    <p>开发效率神器，点击 dom 直接跳到编辑器对应代码。</p>
+    <p>支持 vite/webpack + vue2/vue3/react + vscode/webstorm </p>
   </div>
-  
   <p>
     <a href="https://www.npmjs.com/package/dom-to-code"><img src="https://img.shields.io/npm/v/dom-to-code.svg" alt="npm package"></a>
-  <a href="#badge"><img src="https://img.shields.io/github/languages/top/better-tcy/dom-to-code" alt="language"></a>
-  <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip" alt="gzip"></a>
-  <a href="#badge"><img src="https://img.shields.io/librariesio/github/better-tcy/dom-to-code" alt="librariesio"></a>
-  <a href="https://github.com/better-tcy/dom-to-code/blob/master/LICENSE"><img src="https://img.shields.io/github/license/better-tcy/dom-to-code" alt="LICENSE"></a>
+    <a href="#badge"><img src="https://img.shields.io/github/languages/top/better-tcy/dom-to-code" alt="language"></a>
+    <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip" alt="gzip"></a>
+    <a href="#badge"><img src="https://img.shields.io/librariesio/github/better-tcy/dom-to-code" alt="librariesio"></a>
+    <a href="https://github.com/better-tcy/dom-to-code/blob/master/LICENSE"><img src="https://img.shields.io/github/license/better-tcy/dom-to-code" alt="LICENSE"></a>
     <img src="https://img.shields.io/github/stars/better-tcy/dom-to-code?style=social" alt="stars">
   </p>
 </div>
@@ -24,7 +22,13 @@
 
 接手一个项目开发网页时要修改某部分，要么靠搜索，要么靠记忆找到对应代码，过程极为浪费时间。
 
-在项目里用了 dom-to-code 插件后，对准想要修改的 dom 部分 ctrl + 按下鼠标滚轮，就会在编辑器打开对应的 dom 元素源码。支持 vite/webpack、vue2/vue3/react
+在项目里用了 dom-to-code 插件后，对准想要修改的 dom 部分 ctrl + 按下鼠标滚轮，就会在编辑器打开对应的 dom 元素源码。
+
+(使用 mac 触摸板的用户可以ctrl + 触摸板右键)
+
+支持 vite/webpack + vue2/vue3/react
+
+支持 vscode/webstorm
 
 别人搜索你直接跳，别人加班你摸鱼。
 
@@ -215,3 +219,5 @@ This project exists thanks to all the people who contribute:
 ## 📄 License
 
 [MIT](https://github.com/better-tcy/dom-to-code/blob/master/LICENSE) License © 2022-PRESENT [tuocangyu](https://github.com/better-tcy)
+
+
