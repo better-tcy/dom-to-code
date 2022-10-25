@@ -1,7 +1,29 @@
-import type { RequestHandler } from 'express'
+import type { IncomingMessage, ServerResponse } from 'http'
+import type { RequestHandler, Response } from 'express'
 import launch from 'launch-editor'
 import type { Connect } from 'vite'
 import { OPEN_CODE_API } from './constant'
+import { getPathFromHashMap, getPluginOptions } from './env'
+
+function handleOpenFileRequest(query: Record<string, string | undefined>, res: Response | ServerResponse<IncomingMessage>) {
+  const filePathId = typeof query.filePathId === 'string' ? (query.filePathId || '') : ''
+  const componentFilePathId = typeof query.componentFilePathId === 'string' ? query.componentFilePathId : ''
+  const options = getPluginOptions()
+  const shouldOpenFilePathId = options.openComponentFilePath ? (componentFilePathId || filePathId) : filePathId
+  const shouldOpenFilePath = getPathFromHashMap(shouldOpenFilePathId)
+
+  if (!shouldOpenFilePath) {
+    res.statusCode = 500
+    res.end('launch-editor-middleware: required query param "filePath" is missing.')
+  }
+
+  else {
+    launch(shouldOpenFilePath, () => console.log(
+      'To specify an editor, specify the EDITOR env variable',
+    ))
+    res.end(shouldOpenFilePath)
+  }
+}
 
 /**
  * webpack 的中间件，基于 express
@@ -10,23 +32,11 @@ import { OPEN_CODE_API } from './constant'
  * @param next 下一个中间件
  */
 export const launchEditorMiddleware: RequestHandler = (req, res, next) => {
-  if (req.url.startsWith(OPEN_CODE_API)) {
-    const filePath = typeof req.query.filePath === 'string' ? req.query.filePath : ''
+  if (req.url.startsWith(OPEN_CODE_API))
+    handleOpenFileRequest(req.query as Record<string, string | undefined>, res)
 
-    if (!filePath) {
-      res.statusCode = 500
-      res.end('launch-editor-middleware: required query param "filePath" is missing.')
-    }
-    else {
-      launch(filePath, () => console.log(
-        'To specify an editor, specify the EDITOR env variable',
-      ))
-      res.end()
-    }
-  }
-  else {
+  else
     next()
-  }
 }
 
 /**
@@ -39,18 +49,7 @@ export const launchEditorMiddlewareForVite: Connect.NextHandleFunction = (req, r
   if (req.url?.startsWith(OPEN_CODE_API)) {
     const url = new URL(req.url, 'http://domain.inspector')
     const query = Object.fromEntries(url.searchParams.entries())
-    const filePath = typeof query.filePath === 'string' ? query.filePath : ''
-
-    if (!filePath) {
-      res.statusCode = 500
-      res.end('launch-editor-middleware: required query param "filePath" is missing.')
-    }
-    else {
-      launch(filePath, () => console.log(
-        'To specify an editor, specify the EDITOR env variable',
-      ))
-      res.end()
-    }
+    handleOpenFileRequest(query, res)
   }
   else {
     next()

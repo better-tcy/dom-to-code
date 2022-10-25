@@ -12,8 +12,15 @@ export type SupportMode = (typeof SUPPORT_MODE)[number]
 export interface Options {
   /**
    * 模式
+   * @default vue
    */
   mode?: SupportMode
+
+  /**
+   * 是否打开组件文件路径而非 dom 文件路径
+   * @default false
+   */
+  openComponentFilePath?: boolean
 
   /**
    * 包含的文件规则
