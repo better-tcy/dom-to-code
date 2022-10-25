@@ -44,7 +44,7 @@ export function initDomToCode(): void {
   })
 
   document.addEventListener('mousedown', (e) => {
-    if (e.button === 1 && (keyCode === 'Control' || keyCode === 'Meta')) {
+    if ((e.button === 1 || e.button === 2) && (keyCode === 'Control' || keyCode === 'Meta')) {
       e.stopImmediatePropagation()
       e.preventDefault()
       e.stopPropagation()
