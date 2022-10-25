@@ -38,6 +38,7 @@
     "conventional-changelog-cli": "*",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
+    "deepl": "^1.0.13",
     "eslint": "^8.24.0",
     "esno": "*",
     "globby": "11.1.0",

@@ -1,4 +1,5 @@
 import translate from '@vitalets/google-translate-api'
+import deepl from 'deepl'
 import type { Options as GotOptions } from 'got'
 
 const langsMap = {
@@ -139,10 +140,7 @@ const langsMap = {
  */
 export type Lang = keyof typeof langsMap
 
-/**
- * 谷歌翻译配置
- */
-export interface GoogleTranslateOptions {
+export interface BaseTranslateOption {
   /**
    * 源文件语言
    */
@@ -152,7 +150,12 @@ export interface GoogleTranslateOptions {
    * 目标文件语言
    */
   targetLang: Lang
+}
 
+/**
+ * 谷歌翻译配置
+ */
+export interface GoogleTranslateOptions extends BaseTranslateOption {
   /**
    * 是否自动使用系统代理
    * @default true
@@ -206,4 +209,68 @@ export async function googleTranslate(content: string, options: GoogleTranslateO
   return new Promise<string>((resolve, reject) => {
     translate(content, { from: sourceLang, to: targetLang }, gotOpt).then(res => resolve(res.text)).catch(reject)
   })
+}
+
+export interface DeeplTranslateOptions extends BaseTranslateOption {
+}
+
+/**
+ * deepl 翻译文本
+ * @param content 要翻译的文本
+ * @param options 翻译配置
+ * @returns 翻译后的文本
+ */
+export async function deeplTranslate(content: string, options: GoogleTranslateOptions) {
+  const googleLangDeeplLangMap = {
+    'en': 'EN',
+    'zh-CN': 'ZH',
+    'zh-TW': 'ZH',
+    'ja': 'JA',
+    'fr': 'FR',
+    'es': 'ES',
+    'pt': 'PT',
+    'de': 'DE',
+    'it': 'IT',
+    'ru': 'RU',
+    'pl': 'PL',
+    'nl': 'NL',
+    'el': 'EL',
+    'bg': 'BG',
+    'cs': 'CS',
+    'da': 'DA',
+    'et': 'ET',
+    'fi': 'FI',
+    'hu': 'HU',
+    'lt': 'LT',
+    'lv': 'LV',
+    'ro': 'RO',
+    'sk': 'SK',
+    'sl': 'SL',
+    'sv': 'SV',
+  } as Record<Lang, deepl.DeeplLanguages>
+
+  return deepl({
+    free_api: true,
+    auth_key: process.env.DEEPL_AUTH_KEY || '',
+    target_lang: googleLangDeeplLangMap[options.targetLang] || 'EN',
+    source_lang: googleLangDeeplLangMap[options.sourceLang] || 'ZH',
+    text: content,
+  }).then(res => Promise.resolve(res.data?.translations?.map?.(t => t.text).join('') ?? content))
+}
+
+export type BetterTranslateOptions = {
+  /**
+   * 翻译接口
+   * @default deepl
+   */
+  type?: 'google' | 'deepl'
+} & GoogleTranslateOptions & DeeplTranslateOptions
+
+export async function betterTranslate(content: string, options: BetterTranslateOptions) {
+  const { type = 'deepl', ...otherOptions } = options
+  if (type === 'deepl')
+    return deeplTranslate(content, otherOptions)
+
+  else
+    return googleTranslate(content, otherOptions)
 }

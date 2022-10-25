@@ -1,5 +1,5 @@
 import type { GoogleTranslateOptions } from './translate-utils'
-import { googleTranslate } from './translate-utils'
+import { betterTranslate } from './translate-utils'
 
 /**
  * 翻译 code 注释配置
@@ -37,7 +37,7 @@ export async function translateCode(options: TranslateCodeOptions): Promise<stri
 
     // console.log('要翻译', targetLang, str)
 
-    return googleTranslate(str, {
+    return betterTranslate(str, {
       sourceLang,
       targetLang,
       useSystemProxy,
