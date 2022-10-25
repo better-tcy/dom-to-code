@@ -25,6 +25,40 @@ function getFilePath(element: HTMLElement | null): string | null {
   return getFilePath(element.parentNode as HTMLElement)
 }
 
+function findFilePathByDom(dom: any) {
+  // Host Element
+  if (dom.getAttribute(DOM_ATTR))
+    return dom.getAttribute(DOM_ATTR)
+
+  // Vue3 Component
+  if (dom.__vnode) {
+    let vComponent = dom.__vueParentComponent
+    while (!vComponent.attrs[DOM_ATTR]) vComponent = vComponent.parent
+    return vComponent.attrs[DOM_ATTR]
+  }
+
+  // React Component
+  const fiberKey = Object.keys(dom).find(
+    key => key.startsWith('__react') && (dom as any)[key]?.stateNode === dom,
+  )
+  if (fiberKey) {
+    let fiber = dom[fiberKey] as any
+    while (!fiber.memoizedProps[DOM_ATTR]) fiber = fiber.return
+    return fiber.memoizedProps[DOM_ATTR]
+  }
+
+  // Vue2 Component
+  let vComponent: any = null
+  let el = dom
+  while (!el.__vue__ && el.parentElement) el = el.parentElement
+  vComponent = el.__vue__
+  if (vComponent) {
+    while (!vComponent.$attrs[DOM_ATTR]) vComponent = vComponent.$parent
+    return vComponent.$attrs[DOM_ATTR]
+  }
+
+  return getFilePath(dom)
+}
 /**
  * 初始化 dom-to-code
  */
@@ -41,7 +75,7 @@ export function initDomToCode(): void {
       e.preventDefault()
       e.stopPropagation()
       console.log('dom-to-code: open editor.')
-      const filePath = getFilePath(e.target as HTMLElement)
+      const filePath = findFilePathByDom(e.target)
       filePath && requestService(filePath)
       keyCode = ''
     }
