@@ -4,83 +4,82 @@
   </a>
   <div align="center">
     <h1>DOM TO CODE</h1>
-    <p>简体中文 | <a href="./README_en.md">English</a></p>
-    <p>开发效率神器，点击 dom 直接跳到编辑器对应代码。</p>
-    <p>支持 vite/webpack + vue2/vue3/react + vscode/webstorm </p>
+    <p> <a href="./README.md">简体中文</a> | English</p>
+    <p>Develop an efficient artifact, click DOM to jump directly to the editor's corresponding code.</p>
+    <p>Support Vite/Webpack + Vue2/Vue3/React + VScode/Webstorm</p>
   </div>
   <p>
     <a href="https://www.npmjs.com/package/dom-to-code"><img src="https://img.shields.io/npm/v/dom-to-code.svg" alt="npm package"></a>
     <a href="#badge"><img src="https://img.shields.io/github/languages/top/better-tcy/dom-to-code" alt="language"></a>
-    <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&compression=gzip" alt="gzip"></a>
+    <a href="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&#x26;compression=gzip"><img src="https://img.badgesize.io/https:/unpkg.com/dom-to-code/dist/?label=gzip%20size&#x26;compression=gzip" alt="gzip"></a>
     <a href="#badge"><img src="https://img.shields.io/librariesio/github/better-tcy/dom-to-code" alt="librariesio"></a>
     <a href="https://github.com/better-tcy/dom-to-code/blob/master/LICENSE"><img src="https://img.shields.io/github/license/better-tcy/dom-to-code" alt="LICENSE"></a>
     <img src="https://img.shields.io/github/stars/better-tcy/dom-to-code?style=social" alt="stars">
   </p>
 </div>
 
-## ✨ 介绍
+## ✨ Introduction
+When taking over a project to develop a webpage, if you want to modify a certain part, you can either search or find the corresponding code by memory. The process is extremely wasteful.
 
-接手一个项目开发网页时要修改某部分，要么靠搜索，要么靠记忆找到对应代码，过程极为浪费时间。
+After using the `dom-to-code` plugin in the project, the CTRL + Press the mouse wheel that wants to modify the DOM part you want to modify will open the corresponding DOM element source code in the editor.
 
-在项目里用了 dom-to-code 插件后，对准想要修改的 dom 部分 ctrl + 按下鼠标滚轮，就会在编辑器打开对应的 dom 元素源码。
+(Users of mac touchpad can ctrl + touchpad right button)
 
-(使用 mac 触摸板的用户可以ctrl + 触摸板右键)
+Support vite/webpack + vue2/vue3/react
 
-支持 vite/webpack + vue2/vue3/react
+Support vscode/webstorm
 
-支持 vscode/webstorm
-
-别人搜索你直接跳，别人加班你摸鱼。
+Others searched for you to jump directly, and you can touch the fish overtime.
 
 <img src="https://raw.githubusercontent.com/better-tcy/dom-to-code/master/packages/doc/.vuepress/public/images/dom-to-code-example.gif">
 
-## 📦 安装
+## 📦 Install
 
 ```bash
 npm i dom-to-code
 ```
 
-## 🔨 使用
+## 🔨 Usage
 
-#### 配置选项
+#### Configuration option
 
 ```ts
 interface Options {
   /**
-   * 插件模式，默认是 vue
+   * Plugin mode, the default is vue
    */
   mode: 'vue' | 'react'
 
   /**
-   * 引入的文件规则，vue 默认是 jsx、tsx、vue 文件，react 默认是 jsx、tsx 文件
+   * Include file rules, vue's default is JSX, TSX, Vue files, and react is JSX, TSX files by default
    */
   include?: string | RegExp | string[] | RegExp[] | null
 
   /**
-   * 排除的文件规则，默认是 node_modules 文件
+   * The exclude file rules, the default is node_modules file
    */
   exclude?: string | RegExp | string[] | RegExp[] | null
 }
 
 ```
 
-#### 第一步
+#### Step 1
 
-首先在项目入口文件（比如 `index` 文件或 `main` 文件）中引入插件初始化
+First of all, import the plugin initialization in the project entry file (such as `index` file or `main` file)
 
 ```ts
 import { initDomToCode } from 'dom-to-code'
 
-// 初始化 dom-to-code
+// Initialize Dom-TO-Code
 // initDomToCode()
 
-// 推荐：只在非生产环境初始化
+// Recommended: Only initialize in the non-production environment
 process.env.NODE_ENV !== 'production' && initDomToCode()
 ```
 
-#### 第二步
+#### Step 2
 
-配置打包器，`dom-to-code` 支持 `vite` 和 `webpack` 打包器，以下是 `vite` 、`vue-cli`、`webpack` 里的示例(推荐只在非生产环境配置)
+Configure the package, `dom-to-code` support `vite` and `webpack` The packager, the following is `vite` and `vue-cli` and `webpack` Examples (Recommended only in non-production environment configuration)
 
 <details>
 <summary>Vite</summary><br>
@@ -101,7 +100,7 @@ export default defineConfig({
 })
 ```
 
-Example: [`playgrounds/vite-vue3`](./playgrounds/vite-vue3/)
+Example:[`playgrounds/vite-vue3`](./playgrounds/vite-vue3/)
 
 <br></details>
 
@@ -124,7 +123,7 @@ module.exports = {
 <br></details>
 
 <details>
-<summary>Vue CLI</summary><br>
+<summary>Vue cli</summary><br>
 
 ```ts
 // vue.config.js
@@ -132,10 +131,10 @@ const { domToCodePlugin, domToCodeDevServerV4, domToCodeDevServerV5 } = require(
 
 module.exports = {
   devServer: {
-    // 如果你的 package.json 里的 @vue/cli-service 版本 <= 4.x.x，则使用 domToCodeDevServerV4
+    // If @vue/cli-server version in your package.json <= 4.x.x, use domToCodeDevServerV4
     // ...domToCodeDevServerV4,
 
-    // 如果你的 package.json 里的 @vue/cli-service 版本 >= 5.x.x，则使用 domToCodeDevServerV5
+    // If @vue/cli-server version in your package.json> = 5.x.x, use domToCodeDevServerV5
     ...domToCodeDevServerV5
   },
   configureWebpack: {
@@ -145,7 +144,7 @@ module.exports = {
       })
     ]
   }
-  // 如果你使用的是chainWebpack
+  // If you are using chainWebpack
   // chainWebpack: (config) => {
   //   config
   //     .plugin('domToCodePlugin')
@@ -154,12 +153,12 @@ module.exports = {
 }
 ```
 
-Example: [`playgrounds/webpack5-vue2`](./playgrounds/webpack5-vue2/)
+Example:[`playgrounds/webpack5-vue2`](./playgrounds/webpack5-vue2/)
 
 <br></details>
 
 <details>
-<summary>Create-react-app + react-app-rewired</summary><br>
+<summary>Create-React-APP + React-APP-Rewired</summary><br>
 
 ```ts
 // config-overrides.js
@@ -176,10 +175,10 @@ module.exports = {
     return function (proxy, allowedHost) {
       const config = configFunction(proxy, allowedHost)
 
-      // 如果你的 package.json 里的 react-scripts 版本 <= 4.x.x，则使用 domToCodeDevServerV4
+      // If the react-scripts version in your package.json <= 4.x.x, use domToCodeDevServerV4
       // Object.assign(config, domToCodeDevServerV4)
 
-      // 如果你的 package.json 里的 react-scripts 版本 >= 5.x.x，则使用 domToCodeDevServerV5
+      // If the react-scripts version in your package.json> = 5.x.x, use domToCodeDevServerV5
       Object.assign(config, domToCodeDevServerV5)
 
       return config
@@ -188,36 +187,34 @@ module.exports = {
 }
 ```
 
-Example: [`playgrounds/webpack5-react`](./playgrounds/webpack5-react/)
+Example:[`playgrounds/webpack5-react`](./playgrounds/webpack5-react/)
 
 <br></details>
 
-## 📚 文档
+## 📚 Document
 
-查看 [文档指南 📒](https://dom-to-code.netlify.app/)(即将上线...)
+Check [Document Guide 📒](https://dom-to-code.netlify.app/) (coming soon ...)
 
-## 💡 注意
+## 💡 Notice
 
-如果无法跳转编辑器，请确保你的编辑器已经添加到环境变量，比如 vscode，添加成功后在命令终端输入
+If you can't jump the editor, make sure your editor has added to the environment variable, such as VSCode, after successful adding, enter the command terminal input
 
 ```bash
 code -v
 ```
 
-可以看到 vscode 版本信息意味着成功。
+You can see the VSCode version information means success.
 
 ## 🤖️ Contributing
 
-Learn about contribution [here](https://github.com/better-tcy/dom-to-code/blob/master/CONTRIBUTING.md).
+Learn About Contribution [here](https://github.com/better-tcy/dom-to-code/blob/master/CONTRIBUTING.md) 
 
-This project exists thanks to all the people who contribute:
+This project exist that all the people who control:
 
 <a href="https://github.com/better-tcy/dom-to-code/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=better-tcy/dom-to-code" />
+  <img src="https://contrib.rocks/image?repo=better-tcy/dom-to-code">
 </a>
 
 ## 📄 License
 
-[MIT](https://github.com/better-tcy/dom-to-code/blob/master/LICENSE) License © 2022-PRESENT [tuocangyu](https://github.com/better-tcy)
-
-
+[MIT](https://github.com/better-tcy/dom-to-code/blob/master/LICENSE) License 2 2022-PRESENT[tuocangyu](https://github.com/better-tcy)
