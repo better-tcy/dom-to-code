@@ -1,4 +1,18 @@
-## 1.4.1 (2022-10-24)
+## 1.5.2 (2022-10-25)
+
+
+### Bug Fixes
+
+* **dom-to-code:** 修复 React.Fragment 编译插入文件信息的 bug ([e36362a](https://github.com/better-tcy/dom-to-code/commit/e36362aac9f8c1f9f4b277938ff9f71e166b4e10))
+
+
+### Features
+
+* 兼容笔记本触摸板操作 ([1f1c990](https://github.com/better-tcy/dom-to-code/commit/1f1c990e077f0a1031ce6c9c89888996456f464f))
+
+
+
+# 1.5.0 (2022-10-24)
 
 
 ### Bug Fixes

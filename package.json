@@ -1,6 +1,6 @@
 {
   "name": "dom-to-code-monorepo",
-  "version": "1.5.0",
+  "version": "1.5.3",
   "private": true,
   "packageManager": "pnpm@7.0.0",
   "author": "better-tcy",
