@@ -2,18 +2,21 @@ import type { JSXIdentifier, JSXMemberExpression, JSXNamespacedName, JSXOpeningE
 import type { FilterPattern } from '@rollup/pluginutils'
 import type MagicString from 'magic-string'
 import type { TransformResult } from 'unplugin'
+import { savePathToHashMap } from './env'
 import { DOM_ATTR, REGEX_JSX_FILE, REGEX_SETUP_SFC, REGEX_VUE_SFC, SUPPORT_MODE } from './constant'
 import type { Options, SupportMode } from './types'
 
 /**
- * 创建文件代码路径信息字符串
+ * 创建 dom attr=文件代码路径信息哈希字符串
  * @param filePath 文件路径
  * @param line 行号
  * @param column 列号
  * @returns 返回一个文件代码路径信息字符串，将会存储在 dom 元素的某个 attr 中
  */
-export function createDomAttrLineInfo(filePath: string, line: number, column = 0) {
-  return `${DOM_ATTR}="${filePath}:${line}:${column}"`
+export function createDomInfoHashAttr(filePath: string, line: number, column = 0) {
+  const path = `${filePath}:${line}:${column}`
+  const hash = savePathToHashMap(path)
+  return `${DOM_ATTR}="${hash}"`
 }
 
 export type OptionsResolved = Omit<Required<Options>, 'exclude'> & {
@@ -37,6 +40,7 @@ export function resolveOption(options: Options): OptionsResolved {
 
   return {
     mode,
+    openComponentFilePath: options.openComponentFilePath ?? false,
     include: options.include || defaultIncludeMap[mode],
     exclude: options.exclude || [/node_modules/, /\.git/, /\.nuxt/],
   }
@@ -93,4 +97,22 @@ export const getTransformResult = (
       })
     },
   }
+}
+
+/**
+ * 字符串、数字或对象转成哈希字符串
+ * @param val 字符串、数字或对象
+ * @returns 哈希字符串
+ */
+export function valToHash(val: string | number | Object): string {
+  const str = typeof val === 'string' ? val : JSON.stringify(val)
+  let hash = 0
+  if (str.length === 0)
+    return `h${hash}`
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = (hash << 5) - hash + char
+    hash = hash & hash // Convert to 32bit integer
+  }
+  return `h${hash}`
 }

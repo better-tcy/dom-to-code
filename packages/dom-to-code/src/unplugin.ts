@@ -7,6 +7,7 @@ import { launchEditorMiddleware, launchEditorMiddlewareForVite } from './core/mi
 import type { Options } from './core/types'
 import { transform } from './core/transform'
 import { pathResolve } from './shared-utils'
+import { savePluginOptions } from './core/env'
 
 /**
  * 构建 unplugin
@@ -23,6 +24,10 @@ export default createUnplugin<Options | undefined>((userOptions: Options = {}, m
   return {
     name: 'unplugin-dom-to-code',
     enforce: 'pre',
+
+    buildStart() {
+      savePluginOptions(options)
+    },
 
     transformInclude(id) {
       // 因为 webpack 的 transform 没能覆盖原有代码，所以 webpack 不走 transform, 走 loaders

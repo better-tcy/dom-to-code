@@ -1,7 +1,7 @@
 // see: https://github.com/sudongyuer/vite-plugin-react-inspector/blob/master/packages/vite-plugin-react-inspector/src/index.ts
 import { parseSync, traverse } from '@babel/core'
 import MagicString from 'magic-string'
-import { createDomAttrLineInfo, getJsxElementName, parseJSXIdentifier } from '../helpers'
+import { createDomInfoHashAttr, getJsxElementName, parseJSXIdentifier } from '../helpers'
 
 /**
  * 转换 react 项目
@@ -34,8 +34,7 @@ export const transformReact = (code: string, id: string) => {
           const { start } = node
           const { column, line } = node?.loc?.start as any
           const toInsertPosition = (start || 0) + parseJSXIdentifier(node.openingElement.name as any).length + 1
-          // const content = ` data-react-inspector="${id}:${line}:${column}"`
-          const content = ` ${createDomAttrLineInfo(id, line, column)}`
+          const content = ` ${createDomInfoHashAttr(id, line, column)}`
           s.appendLeft(toInsertPosition, content)
         }
       },

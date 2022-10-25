@@ -6,7 +6,7 @@ import vueJsxPlugin from '@vue/babel-plugin-jsx'
 import typescriptPlugin from '@babel/plugin-transform-typescript'
 import importMeta from '@babel/plugin-syntax-import-meta'
 import type { Thenable, TransformResult } from 'unplugin'
-import { createDomAttrLineInfo, getTransformResult, hasOwn, parseJSXIdentifier } from '../helpers'
+import { createDomInfoHashAttr, getTransformResult, hasOwn, parseJSXIdentifier } from '../helpers'
 import type { VueQuery } from '../types'
 import { DOM_ATTR } from '../constant'
 
@@ -43,8 +43,7 @@ async function compileSFCTemplate(
                 const insertPosition = node.loc.start.offset + node.tag.length + 1
                 const { line, column } = node.loc.start
 
-                // const content = ` data-v-inspector-file="${id}" data-v-inspector-line=${line} data-v-inspector-column=${column} data-v-inspector-title="${base}"`
-                const content = ` ${createDomAttrLineInfo(id, line, column)}`
+                const content = ` ${createDomInfoHashAttr(id, line, column)}`
 
                 s.prependLeft(
                   insertPosition,
@@ -83,7 +82,7 @@ async function compileSFCTemplate(
             const { line = 1, column = 0 } = node.loc?.start || {}
 
             // const content = ` data-v-inspector-file="${id}" data-v-inspector-line={${line}} data-v-inspector-column={${column}} data-v-inspector-title="${base}"`
-            const content = ` ${createDomAttrLineInfo(id, line, column)}`
+            const content = ` ${createDomInfoHashAttr(id, line, column)}`
 
             s.prependLeft(
               insertPosition,
