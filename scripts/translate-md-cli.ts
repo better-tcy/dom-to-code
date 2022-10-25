@@ -7,6 +7,11 @@ function cliMain() {
   const sourceLang: Lang = args[1] as Lang || 'zh-CN'
   const targetLang: Lang = args[2] as Lang || 'en'
 
+  // --deepl-key
+  const deeplKey = args.find(arg => arg.startsWith('--deepl-key='))?.replace('--deepl-key=', '')
+  if (deeplKey)
+    process.env.DEEPL_AUTH_KEY = deeplKey
+
   if (!sourcePath || !sourceLang || !targetLang) {
     console.log('Usage: translate-md <sourcePath> <sourceLang> <targetLang>')
     return

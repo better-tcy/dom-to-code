@@ -2,14 +2,14 @@ import fs from 'fs'
 import path from 'path'
 import type { Code, HTML, Text } from 'mdast'
 import { translateHtml } from './translate-html'
-import type { GoogleTranslateOptions, Lang } from './translate-utils'
-import { googleTranslate } from './translate-utils'
+import type { BetterTranslateOptions, Lang } from './translate-utils'
+import { betterTranslate } from './translate-utils'
 import { translateCode } from './translate-code'
 
 /**
  * 翻译 markdown 内容配置
  */
-interface TranslateMarkdownOptions extends GoogleTranslateOptions {
+interface TranslateMarkdownOptions extends BetterTranslateOptions {
 
   /**
    * markdown 内容
@@ -64,7 +64,7 @@ export async function translateMarkdown(options: TranslateMarkdownOptions): Prom
 
   // 翻译纯文字文本
   const translateTextsResult: string[] = await Promise.all(translateTextNodes.map((text) => {
-    return googleTranslate(text.value, {
+    return betterTranslate(text.value, {
       sourceLang,
       targetLang,
       useSystemProxy,
@@ -119,7 +119,7 @@ export async function translateMarkdown(options: TranslateMarkdownOptions): Prom
 /**
  * 翻译 markdown 文件配置
  */
-export interface TranslateMarkdownFileOptions extends GoogleTranslateOptions {
+export interface TranslateMarkdownFileOptions extends BetterTranslateOptions {
   /**
    * 文件路径
    */

@@ -31,6 +31,7 @@ importers:
       conventional-changelog-cli: 2.2.2
       cross-env: ^7.0.3
       cz-conventional-changelog: ^3.3.0
+      deepl: ^1.0.13
       eslint: ^8.24.0
       esno: 0.16.3
       globby: 11.1.0
@@ -68,6 +69,7 @@ importers:
       conventional-changelog-cli: 2.2.2
       cross-env: 7.0.3
       cz-conventional-changelog: 3.3.0
+      deepl: 1.0.13
       eslint: 8.25.0
       esno: 0.16.3
       globby: 11.1.0
@@ -5774,6 +5776,14 @@ packages:
     resolution: {integrity: sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==}
     engines: {node: '>=4'}
 
+  /axios/0.21.4:
+    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
+    dependencies:
+      follow-redirects: 1.15.2
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
   /axobject-query/2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
 
@@ -8483,6 +8493,15 @@ packages:
 
   /deep-is/0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+
+  /deepl/1.0.13:
+    resolution: {integrity: sha512-ieaHKo+Y2u1jTpbX3SkhFGaOLgXB20gYoLqPhqtjxr612GC9wSMUqrHIfhvQzpevTVcI6H4kgElXActg3DHnqg==}
+    dependencies:
+      axios: 0.21.4
+      querystring: 0.2.1
+    transitivePeerDependencies:
+      - debug
+    dev: true
 
   /deepmerge/1.5.2:
     resolution: {integrity: sha512-95k0GDqvBjZavkuvzx/YqVLv/6YYa17fz6ILMSf7neqQITCPbnfEnQvEgMPNjH4kgobe7+WIL0yJEHku+H3qtQ==}

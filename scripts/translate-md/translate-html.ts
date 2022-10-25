@@ -1,5 +1,5 @@
 import type { GoogleTranslateOptions } from './translate-utils'
-import { googleTranslate } from './translate-utils'
+import { betterTranslate } from './translate-utils'
 
 /**
  * 翻译 html 内容配置
@@ -45,7 +45,7 @@ export async function translateHtml(options: TranslateHtmlOptions): Promise<stri
 
   // 翻译纯文字文本
   const translateTextsResult: string[] = await Promise.all(translateTexts.map((text) => {
-    return googleTranslate(text, {
+    return betterTranslate(text, {
       sourceLang,
       targetLang,
       useSystemProxy,
