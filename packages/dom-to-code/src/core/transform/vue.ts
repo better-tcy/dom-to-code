@@ -36,7 +36,8 @@ async function compileSFCTemplate(
         nodeTransforms: [
           (node) => {
             if (node.type === 1) {
-              if ((node.tagType === 0 || node.tagType === 1) && !EXCLUDE_TAG.includes(node.tag)) {
+              // node.tagType 不能为 1，否则 vue3 有些组件 tag 是 fragment or text root nodes，会报警告且页面可能打不开
+              if ((node.tagType === 0) && !EXCLUDE_TAG.includes(node.tag)) {
                 if (node.loc.source.includes(DOM_ATTR))
                   return
 
