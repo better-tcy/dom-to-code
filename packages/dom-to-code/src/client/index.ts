@@ -39,14 +39,21 @@ function findComponentFilePathIdByDom(dom: any) {
   // Vue3 Component
   if (dom.__vnode) {
     let vComponent = dom.__vueParentComponent
-    while (!vComponent.attrs[DOM_ATTR]) vComponent = vComponent.parent
-    return vComponent.attrs[DOM_ATTR]
+    while (vComponent && !vComponent.attrs[DOM_ATTR]) vComponent = vComponent.parent
+    if (vComponent)
+      return vComponent.attrs[DOM_ATTR]
   }
 
   // React Component
   const fiberKey = Object.keys(dom).find(
-    key => key.startsWith('__react') && (dom as any)[key]?.stateNode === dom,
-  )
+    (key) => {
+      if (key.startsWith('__react')) {
+        const fiber = (dom as any)[key]
+        return fiber && fiber.stateNode === dom
+      }
+      return false
+    })
+
   if (fiberKey) {
     let fiber = dom[fiberKey] as any
     while (!fiber.memoizedProps[DOM_ATTR]) fiber = fiber.return
@@ -58,9 +65,11 @@ function findComponentFilePathIdByDom(dom: any) {
   let el = dom
   while (!el.__vue__ && el.parentElement) el = el.parentElement
   vComponent = el.__vue__
+
   if (vComponent) {
-    while (!vComponent.$attrs[DOM_ATTR]) vComponent = vComponent.$parent
-    return vComponent.$attrs[DOM_ATTR]
+    while (vComponent && !vComponent.$attrs[DOM_ATTR]) vComponent = vComponent.$parent
+    if (vComponent)
+      return vComponent.$attrs[DOM_ATTR]
   }
 
   return getFilePathId(dom)

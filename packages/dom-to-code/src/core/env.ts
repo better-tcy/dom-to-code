@@ -1,11 +1,11 @@
 import { resolveOption, valToHash } from './helpers'
 import type { Options } from './types'
+import { filePathHashMapStorage } from './file-storage'
 
 declare global {
   namespace NodeJS {
     interface Process {
       DOM_TO_CODE_OPTIONS?: Options
-      DOM_TO_CODE_HASH_PATH_MAP?: Record<string, string>
     }
   }
 }
@@ -30,13 +30,10 @@ export const getPluginOptions = () => process.DOM_TO_CODE_OPTIONS || resolveOpti
  * @return 返回哈希值
  */
 export const savePathToHashMap = (filePath: string): string => {
-  if (!process.DOM_TO_CODE_HASH_PATH_MAP)
-    process.DOM_TO_CODE_HASH_PATH_MAP = {}
-  const hashPathMap = process.DOM_TO_CODE_HASH_PATH_MAP
-
   const pathHash = valToHash(filePath)
-  if (pathHash && !hashPathMap[pathHash])
-    hashPathMap[pathHash] = filePath
+
+  if (pathHash && !filePathHashMapStorage.getItem(pathHash))
+    filePathHashMapStorage.setItem(pathHash, filePath)
 
   return pathHash
 }
@@ -47,6 +44,5 @@ export const savePathToHashMap = (filePath: string): string => {
  * @returns 返回文件路径
  */
 export const getPathFromHashMap = (hash: string): string => {
-  const hashPathMap = process.DOM_TO_CODE_HASH_PATH_MAP || {}
-  return hashPathMap[hash] || ''
+  return filePathHashMapStorage.getItem(hash) || ''
 }

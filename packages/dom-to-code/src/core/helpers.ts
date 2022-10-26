@@ -116,3 +116,20 @@ export function valToHash(val: string | number | Object): string {
   }
   return `h${hash}`
 }
+
+/**
+ * 防抖
+ * @param fn 要包装的函数
+ * @param ms 防抖毫秒
+ * @returns 包装后的函数
+ */
+export function debounce(fn: Function, ms = 200) {
+  let handle: any
+  return function (this: any, ...args: any[]) {
+    if (handle)
+      clearTimeout(handle)
+    handle = setTimeout(() => {
+      fn.call(this, ...args)
+    }, ms)
+  }
+}
