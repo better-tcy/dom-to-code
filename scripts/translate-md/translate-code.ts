@@ -1,5 +1,6 @@
-import type { GoogleTranslateOptions } from './translate-utils'
-import { betterTranslate } from './translate-utils'
+import { createReplacer } from './replacer'
+import type { GoogleTranslateOptions } from './utils'
+import { betterTranslate } from './utils'
 
 /**
  * 翻译 code 注释配置
@@ -24,8 +25,6 @@ interface TranslateCodeOptions extends GoogleTranslateOptions {
 export async function translateCode(options: TranslateCodeOptions): Promise<string> {
   const { codeLang, codeContent, sourceLang, targetLang, useSystemProxy } = options
 
-  // 判断是否是全英文
-
   const translate = (str: string) => {
     const englishLangReg = /^[\s\w\d\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E?><;,\{\}\[\]\-_\+=!@\#\$%^&\*\|\'\(\)\.\/\*]*$/g
 
@@ -44,32 +43,8 @@ export async function translateCode(options: TranslateCodeOptions): Promise<stri
     })
   }
 
-  type ForTranslateStr = string
-  type ForReturnToReplaceStr = string
-  type ReplaceFn = (matchResult: string[], translateResult: string) => [ForTranslateStr, ForReturnToReplaceStr]
-
-  const createReplace = (str: string, reg: RegExp, replaceFn: ReplaceFn): () => Promise<string> => {
-    return () => new Promise<string>((resolve, reject) => {
-      const promises: Promise<string>[] = []
-
-      str.replace(reg, (...args) => {
-        const [forTransLateStr] = replaceFn(args, '')
-        promises.push(translate(forTransLateStr))
-        return ''
-      })
-
-      Promise.all(promises).then((results) => {
-        resolve(str.replace(reg, (...args) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const [_, forReturnToReplaceStr] = replaceFn(args, results.shift()!)
-          return forReturnToReplaceStr
-        }))
-      }).catch(reject)
-    })
-  }
-
   const jsLikeCommentRegExp = /(\/\/\s*)(.*)|(\/\*+\s*)([\s\S]*?)(\s*\*+\/)/g
-  const jsLikeCommentReplacer = createReplace(codeContent, jsLikeCommentRegExp, (matchResult, translateResult) => {
+  const jsLikeCommentReplacer = createReplacer(codeContent, jsLikeCommentRegExp, (matchResult, translateResult) => {
     const isInlineComment = Boolean(matchResult[1])
     const inlineCommentContent = matchResult[2] || ''
     const multiLineCommentContent = matchResult[4] || ''
@@ -78,23 +53,23 @@ export async function translateCode(options: TranslateCodeOptions): Promise<stri
     const forReturnReplacerContent = isInlineComment ? `${matchResult[1]}${translateResult}` : `${matchResult[3]}${translateResult}${matchResult[5]}`
 
     return [forTranslateContent, forReturnReplacerContent]
-  })
+  }, translate)
 
   const cssLikeCommentRegExp = /(\/\*+\s*)([\s\S]*?)(\s*\*+\/)/g
-  const cssLikeCommentReplacer = createReplace(codeContent, cssLikeCommentRegExp, (matchResult, translateResult) => {
+  const cssLikeCommentReplacer = createReplacer(codeContent, cssLikeCommentRegExp, (matchResult, translateResult) => {
     const forTranslateContent = matchResult[2] || ''
     const forReturnReplacerContent = `${matchResult[1]}${translateResult}${matchResult[3]}`
     return [forTranslateContent, forReturnReplacerContent]
-  })
+  }, translate)
 
   const htmlLikeCommentRegExp = /(<!--+\s*)([\s\S]*?)(\s*-+->)/g
-  const htmlLikeCommentReplacer = createReplace(codeContent, htmlLikeCommentRegExp, (matchResult, translateResult) => {
+  const htmlLikeCommentReplacer = createReplacer(codeContent, htmlLikeCommentRegExp, (matchResult, translateResult) => {
     const forTranslateContent = matchResult[2] || ''
     const forReturnReplacerContent = `${matchResult[1]}${translateResult}${matchResult[3]}`
     return [forTranslateContent, forReturnReplacerContent]
-  })
+  }, translate)
 
-  const codeLangCommentContentRegExpMap: Record<string, ReturnType<typeof createReplace>> = {
+  const codeLangCommentContentRegExpMap: Record<string, ReturnType<typeof createReplacer>> = {
     js: jsLikeCommentReplacer,
     ts: jsLikeCommentReplacer,
     jsx: jsLikeCommentReplacer,

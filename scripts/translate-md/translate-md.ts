@@ -2,8 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import type { Code, HTML, Text } from 'mdast'
 import { translateHtml } from './translate-html'
-import type { BetterTranslateOptions, Lang } from './translate-utils'
-import { betterTranslate } from './translate-utils'
+import type { BetterTranslateOptions, Lang } from './utils'
+import { betterTranslate } from './utils'
 import { translateCode } from './translate-code'
 
 /**
@@ -28,20 +28,14 @@ export async function translateMarkdown(options: TranslateMarkdownOptions): Prom
   const { unified } = await import('unified')
   const { default: markdownParse } = await import('remark-parse')
   const { default: stringify } = await import('remark-stringify')
-  const { default: remark2rehype } = await import('remark-rehype')
-  const { default: rehype2remark } = await import('rehype-remark')
   const { visit } = await import('unist-util-visit')
   const { default: gfm } = await import('remark-gfm')
   const { default: math } = await import('remark-math')
-  const { default: katex } = await import('rehype-katex')
 
   const processor = unified()
     .use(markdownParse)
     .use(gfm)
     .use(math)
-    .use(remark2rehype)
-    .use(katex)
-    .use(rehype2remark)
     .use(stringify)
 
   const tree = processor.parse(markdownContent)
