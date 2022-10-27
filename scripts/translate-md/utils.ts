@@ -173,9 +173,6 @@ export async function googleTranslate(content: string, options: GoogleTranslateO
   const { HttpsProxyAgent } = await import('hpagent')
   const { sourceLang, targetLang, useSystemProxy = true } = options
 
-  if (!content || !content.trim())
-    return content || ''
-
   // 系统环境变量 http 代理
   const HTTP_PROXY = process.env.HTTP_PROXY || process.env.http_proxy || ''
 
@@ -267,7 +264,11 @@ export type BetterTranslateOptions = {
 } & GoogleTranslateOptions & DeeplTranslateOptions
 
 export async function betterTranslate(content: string, options: BetterTranslateOptions) {
-  const { type = 'deepl', ...otherOptions } = options
+  const { type = 'google', ...otherOptions } = options
+
+  if (!content || !content.trim())
+    return content || ''
+
   if (type === 'deepl')
     return deeplTranslate(content, otherOptions)
 
