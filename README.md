@@ -94,10 +94,12 @@ import { domToCodePlugin } from 'dom-to-code/vite'
 export default defineConfig({
   plugins: [
     vue3(),
-    domToCodePlugin({
-      mode: 'vue'
-    })
-  ]
+    process.env.NODE_ENV !== 'production'
+      ? domToCodePlugin({
+          mode: 'vue',
+        })
+      : undefined,
+  ].filter((f) => !!f)
 })
 ```
 
